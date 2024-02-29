@@ -1,24 +1,19 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: `Hoon's Tech Blog` ,
+  title: `Hoon Jung - Software Engineer`,
   author: 'Hoon Jung',
-  headerTitle: 'Hoon Jung - Software Engineer',
-  description: `Hoon Jung's Tech Blog`,
+  headerTitle: 'Hoon Jung',
+  description: `Software engineering—my personal journey marked by curiosity, a multitude of questions, and a whole heap of exploration`,
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://blog.hoonjung.me',
   siteRepo: 'https://github.com/go-hoon/blog.hoonjung.me',
-  siteLogo: '/static/images/logo.png',
-  socialBanner: '/static/images/twitter-card.png',
+  siteLogo: '/static/images/logo.svg',
+  socialBanner: '/static/images/sns-banner.png',
   mastodon: 'https://mastodon.social/@mastodonuser',
-  email: 'address@yoursite.com',
-  github: 'https://github.com',
-  twitter: 'https://twitter.com/Twitter',
-  facebook: 'https://facebook.com',
-  youtube: 'https://youtube.com',
-  linkedin: 'https://www.linkedin.com',
-  threads: 'https://www.threads.net',
-  instagram: 'https://www.instagram.com',
+  email: 'jhoon5245@gmail.com',
+  github: 'https://github.com/go-hoon',
+  linkedin: 'https://www.linkedin.com/in/hoon-jung-a473031b4/',
   locale: 'en-US',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
@@ -63,7 +58,7 @@ const siteMetadata = {
       // transparent_dark, preferred_color_scheme, custom
       theme: 'light',
       // theme when dark mode
-      darkTheme: 'transparent_dark',
+      darkTheme: 'dark',
       // If the theme option above is set to 'custom`
       // please provide a link below to your custom theme css file.
       // example: https://giscus.app/themes/custom_example.css
