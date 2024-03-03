@@ -1,0 +1,63 @@
+name: 'Build and push container'
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+        
+permissions:
+  contents: read
+
+env:
+  NODE_ENV: production
+
+jobs: 
+  build:
+    name: Build and push container
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Yarn
+        run: npm install -g yarn
+        
+      - name: Install dependencies
+        run: yarn install
+        
+      - name: Build next.js project
+        run: yarn build
+        
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_IMAGE_NAME }}    
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=sha
+            # set latest tag for default branch
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v5.1.0
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/arm64,linux/amd64
