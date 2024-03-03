@@ -1,0 +1,57 @@
+replicaCount: 1
+
+image:
+  repository: ""
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+service:
+  type: LoadBalancer
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations: {
+    ingress.kubernetes.io/rewrite-target: /,
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  }
+    
+  hosts:
+    - host: blog.hoonjung.me
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+      - blog.hoonjung.me
+      secretName: blog-hoon-tls
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /index.html
+    port: 80
+readinessProbe:
+  httpGet:
+    path: /index.html
+    port: 80
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
