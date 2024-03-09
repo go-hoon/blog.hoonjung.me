@@ -3,7 +3,7 @@ const siteMetadata = {
   title: `Hoon Jung - Software Engineer`,
   author: 'Hoon Jung',
   headerTitle: 'Hoon Jung',
-  description: `Software engineering—my personal journey marked by curiosity, a multitude of questions, and a whole heap of exploration`,
+  description: `Software engineering: A journey of curiosity, questions, and exploration`,
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://blog.hoonjung.me',
