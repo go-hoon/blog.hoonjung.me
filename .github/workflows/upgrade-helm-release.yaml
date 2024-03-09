@@ -1,0 +1,40 @@
+name: 'Upgrade helm release'
+
+on:
+  workflow_run:
+    workflows: [Build and push container]
+    types:
+      - completed
+    branches:
+      - master
+  workflow_dispatch:
+
+env:
+  HELM_RELEASE_NAME: ${{ secrets.HELM_RELEASE_NAME }}
+  HELM_NAMESPACE: ${{ secrets.HELM_NAMESPACE }}
+  
+jobs:
+  deploy:
+    name: Upgrade helm release
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}  # This line ensures the job only runs if the previous workflow succeeded
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: 'v3.14.0'
+
+      - name: Kubernetes Set Context
+        uses: Azure/k8s-set-context@v4.0.0      
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.HELM_UPGRADE_KUBECONFIG }}
+      
+      - name: Upgrade Helm release
+        run: |
+          helm upgrade --install "$HELM_RELEASE_NAME" helm/ --values helm/values.yaml --namespace "$HELM_NAMESPACE" --create-namespace
