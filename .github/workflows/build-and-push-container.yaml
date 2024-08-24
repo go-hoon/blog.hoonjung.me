@@ -19,7 +19,7 @@ env:
 
 jobs: 
   build:
-    name: Build and push container
+    name: Build and upload artifact to S3
     runs-on: ubuntu-latest
     environment: production
     
