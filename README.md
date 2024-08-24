@@ -10,16 +10,11 @@ I've implemented several custom features on top of the [tailwind-nextjs-starter-
 
 ## CI/CD
 
-[![Build and push container](https://github.com/go-hoon/blog.hoonjung.me/actions/workflows/build-and-push-container.yaml/badge.svg)](https://github.com/go-hoon/blog.hoonjung.me/actions/workflows/build-and-push-container.yaml)
-[![Upgrade helm release](https://github.com/go-hoon/blog.hoonjung.me/actions/workflows/upgrade-helm-release.yaml/badge.svg)](https://github.com/go-hoon/blog.hoonjung.me/actions/workflows/upgrade-helm-release.yaml)
+[![Build and upload to S3](https://github.com/go-hoon/blog.hoonjung.me/actions/workflows/build-and-push-container.yaml/badge.svg)](https://github.com/go-hoon/blog.hoonjung.me/actions/workflows/build-and-push-container.yaml)
 
-### Build and push container
+### Build and upload to S3
 1. Prepares dependencies and builds static content for the blog.
-2. Builds and pushes an nginx image containing the static blog content to Docker Hub.
-
-### Helm upgrade release
-1. Sets up helm & kubeconfig.
-2. Upgrades the helm release with the `latest` image tag.
+2. Builds and upload artifacts to S3.
 
 ---
 
